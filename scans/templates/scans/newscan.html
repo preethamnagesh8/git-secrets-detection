@@ -1,0 +1,5 @@
+<form action="/scans/triggerscan" method="POST">
+    {% csrf_token %}
+    <input name="repositoryurl" placeholder="Repository URL"/>
+    <button type="submit">Scan</button>
+</form>
