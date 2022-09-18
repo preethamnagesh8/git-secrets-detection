@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container py-4">
+    <div class="card py-4">
+        <form action="/scans/newscan" method="POST">
+            {% csrf_token %}
+            <div class="row px-4">
+                <div class="col-4">
+                    <input placeholder="Anaysis Name" class="form-control" name="analysisname">
+                </div>
+                <div class="col-4">
+                    <input placeholder="Repository URL" class="form-control" name="repositoryurl">
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="form-control btn btn-primary">Add Analysis</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row py-5">
+        <div class="col-xl-12 col-md-12">
+            <div class="card Recent-Users">
+                <div class="card-header">
+                    <h4>Analyses</h4>
+                </div>
+                <form action="/scans/listscans" method="get">
+                    <div class="row p-3 justify-content-between">
+
+                            <div class="col-3">
+                                <label for="incident_title" class="form-label">Analysis Name</label>
+                                <input type="text" name="name" class="form-control" id="name" value="{{ name }}">
+                            </div>
+        
+                            <div class="col-3">
+                                <label for="status" class="form-label">Analysis Status</label>
+                                <select id="status" name="status" class="form-select">
+                                    <option value="None"></option>
+                                    <option value="New">New</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Done">Done</option>
+                                </select>
+                            </div>
+        
+                            <div class="col-3">
+                                <label for="analysed_time" class="form-label">Analysed In The</label>
+                                <select id="analysed_time" name="analysed_time" class="form-select">
+                                    <option value="None"></option>
+                                    <option value="2d">Last 2 Days</option>
+                                    <option value="1w">Last 1 Week</option>
+                                    <option value="2w">Last 2 Weeks</option>
+                                    <option value="1m">Last 1 Month</option>
+                                </select>
+                            </div>
+
+                            <div class="col-1">
+                                <label for="exampleInputEmail1" class="form-label">.</label>
+                                <button type="submit" class=" form-control btn btn-primary" id="exampleInputEmail2">Filter</button>
+                            </div>
+
+                            <div class="col-1">
+                                <label for="exampleInputEmail1" class="form-label">.</label>
+                                <a class="form-control btn btn-danger" href="/scans/listscans">Clear</a>
+                            </div>
+                    </div>
+                </form>
+                <div class="card-block px-0 py-3">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Opened On</th>
+                                    <th>Status</th>
+                                </tr>
+                                {% for scan in scans_list %}
+                                <tr class="unread">
+                                    <td>
+                                        <h6 class="mb-1"><a href="/scans/detailedscan/{{scan.analysisid}}/">{{ scan.name }}</a></h6>
+                                        <p class="m-0">{{ scan.repositoryurl }}</p>
+                                    </td>
+                                    <td>
+                                        <h6 class="mt-2">{{ scan.startedat }}</h6>
+                                    </td>
+                                    <td>
+                                        {% if scan.state == "New" %}
+                                        <span class="badge bg-danger">{{ scan.state }}</span>
+                                        {% elif scan.state == "In Progress" %}
+                                        <span class="badge bg-warning">{{ scan.state }}</span>
+                                        {% elif scan.state == "Done" %}
+                                        <span class="badge bg-info">{{ scan.state }}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock content %}
