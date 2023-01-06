@@ -1,15 +1,126 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-<div class="px-4 py-5 my-5 text-center">
-    <img class="d-block mx-auto mb-4" src="{% static 'imgs/logo.png' %}" alt="" width="72" height="57">
+
+<style>
+  .feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    color: #fff;
+    border-radius: 0.75rem;
+}
+
+.b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 0.5em 1.5em rgb(0 0 0 / 10%), inset 0 0.125em 0.5em rgb(0 0 0 / 15%);
+}
+</style>
+
+<div class="px-4 py-5 my-5">
+    <div class="text-center py-5">
+      <img class="d-block mx-auto mb-4" src="{% static 'imgs/logo.png' %}" alt="" width="72" height="57">
     <h1 class="display-5 fw-bold">Source Code Secrets Detection</h1>
     <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Scan open source repositories to uncover secrets in the latest as well as the past commits in the repositories. Secrets include API Keys, Private Keys, Certificates, Passwords and so on.</p>
+      <p class="lead mb-4">Secrets are pieces of sensitive information that are typically used to authenticate or authorize access to systems, services, or resources. Examples of secrets include passwords, API keys, and tokens. These secrets are often stored in configuration files, environment variables, or other locations within a codebase.</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <button type="button" class="btn btn-outline-secondary btn-lg px-4 gap-3">Learn More</button>
         <a type="button" href="/scans/listscans" class="btn btn-primary btn-lg px-4">Start Analysis</a>
       </div>
     </div>
+    </div>
+
+    <div class="container px-4 py-5 my-5" id="featured-3">
+      <h2 class="pb-2 border-bottom">Why is this important ?</h2>
+      <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+        <div class="feature col">
+          <div class="feature-icon bg-warning bg-gradient">
+            <i class="bi bi-binoculars"></i>
+          </div>
+          <h2>Unauthorized Access</h2>
+          <p class="lead">Secrets detection helps secure passwords and API keys, preventing unauthorized access to systems and data.</p>
+        </div>
+        <div class="feature col">
+          <div class="feature-icon bg-success bg-gradient">
+            <i class="bi bi-cloud-download"></i>
+          </div>
+          <h2>Data Breaches</h2>
+          <p class="lead">Unsecured secrets can be easily accessed by attackers, increasing the risk of data breaches.</p>
+        </div>
+        <div class="feature col">
+          <div class="feature-icon bg-info bg-gradient">
+            <i class="bi bi-bookmark-star"></i>
+          </div>
+          <h2>Compliance</h2>
+          <p class="lead">Detecting and securing secrets helps organizations meet regulatory requirements and maintain trust.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container px-4 py-5 my-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-sm-12 col-lg-7">
+          <h2 class="text-center">Frequently Asked Questions</h2>
+          <div class="accordion py-5" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  What are the different techniques for secrets detection ?
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  There are several techniques that can be used to detect secrets in source code, including static analysis, dynamic analysis, and machine learning-based approaches. Static analysis involves scanning codebases for patterns that may indicate the presence of secrets, while dynamic analysis involves executing code and analyzing its behavior to identify secrets. Machine learning-based approaches involve training machine learning models to detect secrets in codebases.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  What are the best practices for securing secrets in codebases ?
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  There are several best practices that developers can follow to secure secrets in codebases, including using a secrets management tool, using environment variables, and using a secrets detection tool. Secrets management tools provide features such as encryption, access controls, and audit logs to help secure secrets, while environment variables allow secrets to be easily changed and managed without modifying code. Secrets detection tools can automatically scan codebases for secrets, allowing developers to identify and secure secrets before they are deployed.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Are there any tools available for secrets detection in source code ?
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  Yes, there are a variety of tools available for secrets detection in source code. These tools can be used to scan codebases for secrets using static analysis, dynamic analysis, or machine learning-based approaches. Some popular secrets detection tools include Trufflehog, Gitrob, and Hashicorp's Vault.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                  Are there any potential drawbacks to using secrets detection tools ?
+                </button>
+              </h2>
+              <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  While secrets detection tools can be a useful tool for identifying and securing secrets in codebases, there are a few potential drawbacks to consider. One potential issue is false positives, where the tool identifies a potential secret but it is actually benign. This can be mitigated by properly configuring the tool and manually reviewing the results. Another potential issue is the overhead of running the tool, which can take time and resources.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 {% endblock content %}

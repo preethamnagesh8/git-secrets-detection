@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger" role="alert">
+                {{ error_msg }}
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

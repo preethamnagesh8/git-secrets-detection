@@ -3,7 +3,6 @@
 {% load static %}
 
 <div class="container py-5">
-
     <div class="card p-4">
         <div class="row">
             <div class="col-10">
@@ -21,54 +20,51 @@
         </div>
     </div>
 
+    
     <div class="row py-5">
-        
-        {% for vuln in scan_vulns %}
-            <div class="card py-3 my-3">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-11">
-                            <h5 class="card-title">Secret Detected</h5>
-                        </div>
-                        <div class="col-1">
-                            {% if vuln.severity == "High" %}
-                            <span class="badge rounded-pill bg-danger">{{ vuln.severity }}</span>
-                            {% elif vuln.severity == "Medium" %}
-                            <span class="badge rounded-pill bg-warning">{{ vuln.severity }}</span>
-                            {% elif vuln.severity == "Low" %}
-                            <span class="badge rounded-pill bg-success">{{ vuln.severity }}</span>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-4">
-                            <p class="card-text"><strong>Location:</strong> {{ vuln.filename }}</p>
-                        </div>
-                        <div class="col-4">
-                            <p class="card-text"><strong>Line Number:</strong> {{ vuln.lineofcode }}</p>
-                        </div>
-                        <div class="col-4">
-                            <p class="card-text"><strong>Category:</strong> {{ vuln.category }}</p>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row py-2">
-                        <div class="col">
-                            <strong>Code Snippet:</strong>
-                            <p>{{ vuln.snippet }}</p>
-                        </div>
-                    </div>
-                    <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-                </div>
-            </div>
-        {% endfor %}
-        
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Vuln ID</th>
+                <th scope="col">File Path</th>
+                <th scope="col">Line No.</th>
+                <th scope="col">Snippet</th>
+                <th scope="col">Commit ID</th>
+                <th scope="col">Category</th>
+                <th scope="col">Vulnerability Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for vuln in scan_vulns %}
+              <tr>
+                <td scope="row">{{ vuln.vulnerabilityid|slice:":8" }}</th>
+                <td><a href="{{ scan_details.repositoryurl }}/blob/{{ vuln.commitid }}/{{ vuln.filename }}#L{{ vuln.lineofcode }}" rel="noopener noreferrer" target="_blank">{{ vuln.filename|slice:":20" }}...</a></td>
+                <td>{{ vuln.lineofcode }}</td>
+                <td>{{ vuln.snippet|slice:":30" }}</td>
+                <td>{{ vuln.commitid|slice:":10" }}</td>
+                <td>{{ vuln.category }}</td>
+                <td>
+                    {% if vuln.verificationstatus == 'VV' %}
+                    <span class="badge bg-danger">{{ vuln.get_verificationstatus_display }}</span>
+                    {% elif vuln.verificationstatus == 'UV' %}
+                    <span class="badge bg-warning text-dark">{{ vuln.get_verificationstatus_display }}</span>
+                    {% elif vuln.verificationstatus == 'VF' %}
+                    <span class="badge bg-success">{{ vuln.get_verificationstatus_display }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/scans/detailedscan/{{ scan_details.analysisid }}/verifyvulnerability/{{ vuln.vulnerabilityid }}/" class="btn btn-outline-primary btn-small bi bi-search"></a>
+                    <a class="bi bi-x-circle btn btn-outline-success btn-small"></a>
+                    <i class="bi bi-bug btn btn-outline-danger btn-small"></i>
+                    <i class="bi bi-git"></i>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
     </div>
-
 </div>
 
 {% endblock content %}

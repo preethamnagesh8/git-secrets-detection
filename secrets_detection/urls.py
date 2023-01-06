@@ -20,4 +20,5 @@ urlpatterns = [
     path('scans/', include('scans.urls')),
     path('home/', include('home.urls')),
     path('admin/', admin.site.urls),
+    path('account/', include('login.urls')),
 ]
